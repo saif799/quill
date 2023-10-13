@@ -48,7 +48,7 @@ const Dashboard = () => {
             .map((file) => (
               <li
                 key={file.id}
-                className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow transition hover:shadow-lg"
+                className="col-span-1 divide-y divide-gray-200 rounded-md bg-white shadow transition hover:shadow-lg"
               >
                 <Link
                   className=" flex flex-col gap-2"
