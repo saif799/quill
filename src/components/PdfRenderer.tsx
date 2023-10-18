@@ -184,7 +184,7 @@ const PdfRenderer = ({ url }: PdfRendererProps) => {
               ) : null}
               <Page
                 key={"@" + scale}
-                className={cn(isLoading ? "hidden" : "")}
+                className={cn(isLoading ? "hidden"! : "")}
                 scale={scale}
                 width={width ? width : 1}
                 pageNumber={currPage}
