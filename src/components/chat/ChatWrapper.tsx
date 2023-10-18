@@ -3,7 +3,9 @@
 import Messages from "./Messages";
 import ChatInputs from "./ChatInputs";
 import { trpc } from "@/app/_trpc/client";
-import { Loader2, XCircle } from "lucide-react";
+import { ChevronLeft, Loader2, XCircle } from "lucide-react";
+import Link from "next/link";
+import { buttonVariants } from "../ui/button";
 interface chatWrapperProps {
   fileId: string;
 }
@@ -51,7 +53,7 @@ const ChatWrapper = ({ fileId }: chatWrapperProps) => {
       </div>
     );
 
-  if (data?.status === "FAILD")
+  if (data?.status === "FAILD" && false)
     return (
       <div className=" relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2">
         <div className=" flex flex-1 justify-center items-center flex-col mb-28 ">
@@ -62,10 +64,18 @@ const ChatWrapper = ({ fileId }: chatWrapperProps) => {
               Your <span className=" font-medium">Free</span> plan supports up
               to 5MB per PDF
             </p>
+
+            <Link
+              href="/"
+              className={buttonVariants({
+                variant: "secondary",
+                className: "mt-4",
+              })}
+            >
+              <ChevronLeft className=" h-3 w-3  mr-1.5" /> Back{" "}
+            </Link>
           </div>
         </div>
-
-        <ChatInputs isDisabled />
       </div>
     );
   return (
