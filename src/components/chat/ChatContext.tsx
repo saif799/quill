@@ -25,7 +25,7 @@ interface Props {
 
 export const ChatContextProvider = ({ fileId, children }: Props) => {
   const [message, setMessage] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingState, setIsLoadingState] = useState<boolean>(false);
 
   const { toast } = useToast();
 
@@ -50,7 +50,7 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
 
   return (
     <ChatContext.Provider
-      value={{ addMessage, message, handleInputChange, isLoading }}
+      value={{ addMessage, message, handleInputChange, isLoadingState }}
     ></ChatContext.Provider>
   );
 };

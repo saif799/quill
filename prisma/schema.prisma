@@ -16,6 +16,7 @@ model User{
   email String @unique
 
   File  File[]
+  Message Message[]
 
   stripeCustomerId String? @unique @map(name: "stripe_customer_id")
   stripeSubscriptionId String? @unique @map(name: "stripe_subscripiton_id")
@@ -26,7 +27,7 @@ model User{
 enum uploadStatus {
   PENDING
   PROCCESSING 
-  FAILD 
+  FAILED 
   SUCCESS
 }
 
@@ -34,13 +35,28 @@ enum uploadStatus {
 model File{
   id String @id @default(cuid())
   name String 
+  key String 
+  message Message[]
 
   uploadStatus uploadStatus @default(PENDING)
   URL String 
-  key String 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   User User? @relation(fields: [userId],references: [id])
   userId  String?
+}
+
+model Message{
+  id String @id @default(cuid())
+  text String @db.Text()
+
+  isUserMessage Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User User? @relation(fields: [userId],references: [id])
+  userId String?
+  file File? @relation(fields: [fileId],references: [id])
+  fileId String?
+
 }
