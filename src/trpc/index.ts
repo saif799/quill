@@ -64,7 +64,10 @@ export const appRouter = router({
         },
       });
 
-      if (!file) return { status: "PENDING" as const };
+      if (!file) {
+        console.log(file);
+        return { status: "PENDING" as const };
+      }
 
       return { status: file.uploadStatus };
     }),

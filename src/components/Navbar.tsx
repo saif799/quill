@@ -5,20 +5,16 @@ import { buttonVariants } from "./ui/button";
 import { ArrowRight } from "lucide-react";
 
 const Navbar = () => {
-  // const { getUser } = getKindeServerSession();
-
-  // const user = getUser();
-
   return (
     <nav className="sticky h-14 inset-x-0 z-30 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
         {" "}
         <div className=" flex h-14 justify-between items-center border-b border-zinc-200 ">
-          <Link href="/" className=" flex z-40 font-semibold ">
+          <Link href="/" className="z-40 font-semibold ">
             quill.
           </Link>
           {/* todo: add mobile navbar */}
-          <div className=" hidden items-center space-x-4 sm:flex">
+          <div className="  items-center space-x-4 sm:flex">
             <>
               <Link
                 href="/pricing"

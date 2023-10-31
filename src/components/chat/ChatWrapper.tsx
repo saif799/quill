@@ -10,7 +10,6 @@ interface chatWrapperProps {
   fileId: string;
 }
 const ChatWrapper = ({ fileId }: chatWrapperProps) => {
-  console.log(fileId);
   const { data, isLoading } = trpc.getFileUploadStatus.useQuery(
     {
       fileId,
@@ -45,7 +44,7 @@ const ChatWrapper = ({ fileId }: chatWrapperProps) => {
           <div className=" left-px flex-col items-center gap-2">
             <Loader2 className=" h-8 w-8 text-blue-500 animate-spin" />
             <h3 className=" font-semibold text-xl"> Processing...</h3>
-            <p className=" text-zinc-500 text-sm">This Wo&apos;nt take time.</p>
+            <p className=" text-zinc-500 text-sm">This Won&apos;t take time.</p>
           </div>
         </div>
 
@@ -62,7 +61,7 @@ const ChatWrapper = ({ fileId }: chatWrapperProps) => {
             <h3 className=" font-semibold text-xl"> Too many pages in PDF</h3>
             <p className=" text-zinc-500 text-sm">
               Your <span className=" font-medium">Free</span> plan supports up
-              to 5MB per PDF
+              to 4MB per PDF
             </p>
 
             <Link

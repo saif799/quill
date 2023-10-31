@@ -3,7 +3,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
-import { pinecone } from "@/lib/pinecone";
+import { getPineconeClient } from "@/lib/pinecone";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
 
 const f = createUploadthing();
@@ -35,22 +35,28 @@ export const ourFileRouter = {
         const response = await fetch(
           `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${file.key}`
         );
+
         const blob = await response.blob();
 
         const loader = new PDFLoader(blob);
 
-        const pageLvlDocs = await loader.load();
-        const pagesAmt = pageLvlDocs.length;
+        const pageLevelDocs = await loader.load();
 
-        //verctorize and index entire document
+        const pagesAmt = pageLevelDocs.length;
 
-        const pineconeIndex = pinecone.index("quill");
+        // //verctorize and index entire document
+
+        const pinecone = await getPineconeClient();
+
+        const pineconeIndex = pinecone.Index("quill");
+
+        // const pinecone = await getPineconeClient();
 
         const embeddings = new OpenAIEmbeddings({
           openAIApiKey: process.env.OPENAI_API_KEY,
         });
 
-        await PineconeStore.fromDocuments(pageLvlDocs, embeddings, {
+        await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
           //@ts-ignore
           pineconeIndex,
           namespace: createdFile.id,
@@ -65,6 +71,7 @@ export const ourFileRouter = {
           },
         });
       } catch (err) {
+        console.log(err);
         await db.file.update({
           data: {
             uploadStatus: "FAILED",
